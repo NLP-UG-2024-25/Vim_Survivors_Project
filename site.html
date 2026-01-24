@@ -15,7 +15,82 @@
         </div>
     </header>
 
-    <main class="container">
+<section class="section" id="search">
+    <h2>Search movies</h2>
+    <p class="muted">
+      Choose your preferences. Results will appear below.
+    </p>
+
+    <form class="search-form">
+      <div class="field">
+        <label>Title</label>
+        <input type="text" placeholder="e.g. Inception">
+      </div>
+
+      <div class="field">
+        <label>Year</label>
+        <input type="number" placeholder="e.g. 2014">
+      </div>
+
+      <div class="field">
+        <label>Director</label>
+        <input type="text" placeholder="e.g. Nolan">
+      </div>
+
+      <div class="field">
+        <label>Cast</label>
+        <input type="text" placeholder="e.g. DiCaprio">
+      </div>
+
+      <div class="field">
+        <label>Genre</label>
+        <select>
+          <option>Any</option>
+          <option>Action</option>
+          <option>Drama</option>
+          <option>Comedy</option>
+          <option>Sci-Fi</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Runtime</label>
+        <select>
+          <option>Any</option>
+          <option>&lt; 90 min</option>
+          <option>90–120 min</option>
+          <option>120+ min</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Awards</label>
+        <select>
+          <option>Any</option>
+          <option>Oscar winner</option>
+          <option>Oscar nominated</option>
+          <option>Golden Globe winner</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Country</label>
+        <select>
+          <option>Any</option>
+          <option>USA</option>
+          <option>UK</option>
+          <option>France</option>
+          <option>Poland</option>
+          <option>Japan</option>
+        </select>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit">Search</button>
+        <button class="btn btn-ghost" type="reset">Reset</button>
+      </div>
+    </form>
+  </section>
         
     </main>
 
