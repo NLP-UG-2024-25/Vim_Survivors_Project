@@ -28,3 +28,20 @@ body {
 .muted {
   color: var(--muted);
 }
+
+.section {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.section h2 {
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+}
+
+.section p {
+  margin-bottom: 20px;
+}
