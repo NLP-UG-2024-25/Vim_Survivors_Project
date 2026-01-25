@@ -121,3 +121,11 @@ select {
   background: transparent;
   color: var(--muted);
 }
+.results-empty {
+  margin-top: 20px;
+  padding: 40px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
