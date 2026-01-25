@@ -29,6 +29,25 @@ body {
   color: var(--muted);
 }
 
+.header {
+  background: var(--panel);
+  border-bottom: 2px solid var(--accent);
+}
+
+.header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
 .section {
   background: var(--panel);
   border: 1px solid var(--border);
