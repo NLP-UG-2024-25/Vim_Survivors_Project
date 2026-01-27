@@ -159,11 +159,12 @@ select {
 }
 
 #themeToggle:checked ~ .app {
-  --bg: #f8fafc;
-  --panel: #ffffff;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --muted: #64748b;
+   --bg: #f1f5f9;        
+  --panel: #ffffff;    
+  --border: #e5e7eb;   
+  --text: #0f172a;    
+  --muted: #6b7280;    
+  --accent: #6366f1; 
 }
 
 .theme-btn {
@@ -176,4 +177,31 @@ select {
 
 .theme-btn:hover {
   color: var(--text);
+}
+
+#themeToggle:checked ~ .app .section,
+#themeToggle:checked ~ .app .header,
+#themeToggle:checked ~ .app .footer {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+#themeToggle:checked ~ .app input,
+#themeToggle:checked ~ .app select {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+#themeToggle:checked ~ .app input:focus,
+#themeToggle:checked ~ .app select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+#themeToggle:checked ~ .app .header {
+  border-bottom: 1px solid var(--border);
+}
+
+#themeToggle:checked ~ .app .logo {
+  font-weight: 700;
 }
