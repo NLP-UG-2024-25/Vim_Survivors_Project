@@ -4,35 +4,42 @@
 <head>
     <meta charset="utf-8">
     <title>Movie Finder</title>
+    <!-- Podłączenie do pliku css -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Wskazanie faviconu -->
     <link rel="icon" href="popcorn.ico" type="image/x-icon">
 </head>
 
 <body>
+  <!-- Ukryty checkbox do przełączania ciemny/jasny  -->
   <input type="checkbox" id="themeToggle" hidden>
 
   <div class="app">
+    <!-- Nagłówek strony -->
     <header class="header">
         <div class="container header-row">
   <div class="header-left">
+    <!-- Logo i podtytuł -->
     <h1 class="logo">🎬 MovieFinder</h1>
     <p class="subtitle">Search movies by multiple parameters</p>
   </div>
-
+  <!-- Przycisk do zmiany motywu -->
   <label for="themeToggle" class="theme-btn">
     🌙 / ☀️
   </label>
 </div>
 
     </header>
-    <main class="container">
 
+    <!-- Główna zawartość strony -->
+    <main class="container">
+      <!-- Sekcja z nagłówkiem wyszukiwania filmów -->
 <section class="section" id="search">
     <h2>Search movies</h2>
     <p class="muted">
       Choose your preferences. Results will appear below.
     </p>
-
+      <!-- Formularz wyszukiwania -->
     <form class="search-form">
       <div class="field">
         <label>Title</label>
@@ -96,17 +103,17 @@
           <option>Japan</option>
         </select>
       </div>
-
+        <!-- Przyciski wyszukiwania i resetowania -->
       <div class="actions">
         <button class="btn btn-primary" type="submit">Search</button>
         <button class="btn btn-ghost" type="reset">Reset</button>
       </div>
     </form>
   </section>
-        
+    <!-- Sekcja wyników -->
   <section class="section" id="results"> 
     <h2>Results</h2>
-
+    <!-- Pusty placeholder dla wyników -->
     <div class="results-empty">
       <p>
         No results yet.<br>
@@ -115,7 +122,7 @@
     </div></section>
   
     </main>
-
+    <!-- Stopka strony -->
     <footer class="footer">
         <p>
             HTML + CSS Project • Movie data provided by
