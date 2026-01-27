@@ -157,3 +157,23 @@ select {
     flex: 1;
   }
 }
+
+#themeToggle:checked ~ .app {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+}
+
+.theme-btn {
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--muted);
+  user-select: none;
+}
+
+.theme-btn:hover {
+  color: var(--text);
+}
