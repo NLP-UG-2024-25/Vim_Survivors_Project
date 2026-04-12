@@ -282,3 +282,22 @@ button {
   border-radius: var(--radius);
   color: var(--muted);
 }
+
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.movie-card {
+  background: var(--panel);
+  padding: 10px;
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.movie-card img {
+  width: 100%;
+  border-radius: 8px;
+}
