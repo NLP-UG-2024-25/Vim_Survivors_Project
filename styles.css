@@ -164,14 +164,18 @@ select {
   .search-form {
     grid-template-columns: 1fr;
   }
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-  .actions {
-    justify-content: stretch;
-  }
-
-  .actions .btn {
-    flex: 1;
-  }
+.actions .btn {
+  flex: 1;
+  min-width: 120px;
+}
+ 
 }
 /*  Tryb Jasny i Ciemny zmiana wyglądu po wciśnięciu przycisku */
 #themeToggle:checked ~ .app {
@@ -249,4 +253,22 @@ select {
 
 #themeToggle:checked ~ .app .logo {
   font-weight: 700;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1300px;
+  }
+
+  .search-form {
+    gap: 16px;
+  }
+}
+
+input, select {
+  width: 100%;
+}
+
+button {
+  touch-action: manipulation;
 }
