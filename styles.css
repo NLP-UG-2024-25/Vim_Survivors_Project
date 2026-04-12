@@ -254,3 +254,21 @@ select {
 #themeToggle:checked ~ .app .logo {
   font-weight: 700;
 }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1300px;
+  }
+
+  .search-form {
+    gap: 16px;
+  }
+}
+
+input, select {
+  width: 100%;
+}
+
+button {
+  touch-action: manipulation;
+}
