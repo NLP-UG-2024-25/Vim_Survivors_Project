@@ -183,19 +183,43 @@ select {
   --accent: #6366f1; 
 }
 
- .theme-btn {
+.theme-icon-toggle {
+  width: 50px;
+  height: 26px;
+  background: var(--border);
+  border-radius: 999px;
+  position: relative;
   cursor: pointer;
-  font-size: 1.4rem;
-  color: var(--muted);
-  user-select: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  transition: background 0.3s;
 }
 
-.theme-btn:hover {
-  background: rgba(255,255,255,0.08);
-  color: var(--text);
+/* ikonka */
+.icon {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+/* domyślnie 🌙 */
+.icon::before {
+  content: "🌙";
+}
+
+/* po kliknięciu przesuwa się */
+#themeToggle:checked ~ .app .theme-icon-toggle .icon {
+  transform: translateX(20px);
+}
+
+/* zmiana na ☀️ */
+#themeToggle:checked ~ .app .theme-icon-toggle .icon::before {
+  content: "☀️";
+}
+
+/* kolor aktywny */
+#themeToggle:checked ~ .app .theme-icon-toggle {
+  background: var(--accent);
 }
 
 
