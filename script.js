@@ -1,7 +1,7 @@
 const form = document.querySelector(".search-form");
 const resultsSection = document.querySelector("#results");
 
-const API_KEY = "";
+const API_KEY = "b69b151";
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -19,10 +19,13 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
+    resultsSection.innerHTML = "<p>Loading...</p>";
+
     const res = await fetch(url);
     const data = await res.json();
 
     displayResults(data);
+
   } catch (err) {
     resultsSection.innerHTML = `<p>Error fetching data</p>`;
   }
@@ -30,7 +33,10 @@ form.addEventListener("submit", async (e) => {
 
 function displayResults(data) {
   if (data.Response === "False") {
-    resultsSection.innerHTML = `<p>No results found</p>`;
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>No results found</p>
+    `;
     return;
   }
 
@@ -38,12 +44,21 @@ function displayResults(data) {
 
   resultsSection.innerHTML = `
     <h2>Results</h2>
-    <div class="movies">
+    <div class="netflix-grid">
       ${movies.map(movie => `
-        <div class="movie-card">
-          <img src="${movie.Poster}" alt="${movie.Title}" />
-          <h3>${movie.Title}</h3>
-          <p>${movie.Year}</p>
+        <div class="netflix-card">
+          <div class="poster">
+            <img src="${movie.Poster}" alt="${movie.Title}" />
+
+            <button class="play-btn">▶</button>
+
+            <div class="overlay">
+              <div class="info">
+                <h3>${movie.Title}</h3>
+                <p>${movie.Year}</p>
+              </div>
+            </div>
+          </div>
         </div>
       `).join("")}
     </div>
