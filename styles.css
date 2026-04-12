@@ -272,3 +272,13 @@ input, select {
 button {
   touch-action: manipulation;
 }
+
+/* Sekcja Currently in cinemas */
+.cinemas-placeholder {
+  margin-top: 20px;
+  padding: 40px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
