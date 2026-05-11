@@ -70,3 +70,72 @@ ${movies.map(movie => `
     </div>
   `;
 }
+
+const translations = {
+  en: {
+    subtitle: "Search movies by multiple parameters",
+    cinemas: "Currently in cinemas",
+    cinemasText: "Featured cinema releases will appear here.",
+
+    netflix: "Currently popular on Netflix",
+
+    searchMovies: "Search movies",
+    preferences: "Choose your preferences. Results will appear below.",
+
+    title: "Title",
+    year: "Year",
+    director: "Director",
+    cast: "Cast",
+    genre: "Genre",
+    runtime: "Runtime",
+    awards: "Awards",
+    country: "Country",
+
+    search: "Search",
+    reset: "Reset",
+
+    results: "Results",
+    noResults: "No results yet. Use the search form above to find movies."
+  },
+
+  pl: {
+    subtitle: "Wyszukuj filmy według wielu parametrów",
+    cinemas: "Obecnie w kinach",
+    cinemasText: "Polecane premiery kinowe pojawią się tutaj.",
+
+    netflix: "Obecnie popularne na Netflixie",
+
+    searchMovies: "Wyszukaj filmy",
+    preferences: "Wybierz preferencje. Wyniki pojawią się poniżej.",
+
+    title: "Tytuł",
+    year: "Rok",
+    director: "Reżyser",
+    cast: "Obsada",
+    genre: "Gatunek",
+    runtime: "Czas trwania",
+    awards: "Nagrody",
+    country: "Kraj",
+
+    search: "Szukaj",
+    reset: "Resetuj",
+
+    results: "Wyniki",
+    noResults: "Brak wyników. Użyj formularza wyszukiwania."
+  }
+};
+
+let currentLang = "en";
+
+const langBtn = document.getElementById("langToggle");
+
+langBtn.addEventListener("click", () => {
+  currentLang = currentLang === "en" ? "pl" : "en";
+
+  langBtn.textContent = currentLang === "en" ? "PL" : "EN";
+
+  document.querySelectorAll("[data-lang]").forEach(element => {
+    const key = element.getAttribute("data-lang");
+    element.textContent = translations[currentLang][key];
+  });
+});

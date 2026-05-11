@@ -5,208 +5,272 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Finder</title>
-    <!-- Podłączenie do pliku css -->
+
     <link rel="stylesheet" href="styles.css">
-    <!-- Wskazanie faviconu -->
     <link rel="icon" href="popcorn.ico" type="image/x-icon">
-    
 </head>
 
 <body>
-  <!-- Ukryty checkbox do przełączania ciemny/jasny  -->
-  <input type="checkbox" id="themeToggle" hidden>
 
-  <div class="app">
-    <!-- Nagłówek strony -->
-    <header class="header">
-        <div class="container header-row">
-  <div class="header-left">
-    <!-- Logo i podtytuł -->
-    <h1 class="logo">🎬 MovieFinder</h1>
-    <p class="subtitle">Search movies by multiple parameters</p>
-  </div>
-  <!-- Przycisk do zmiany motywu -->
-  <label for="themeToggle" class="theme-icon-toggle">
-    <span class="icon"></span>
-  </label>
+<input type="checkbox" id="themeToggle" hidden>
+
+<div class="app">
+
+<header class="header">
+    <div class="container header-row">
+
+        <div class="header-left">
+            <h1 class="logo">🎬 MovieFinder</h1>
+
+            <p class="subtitle" data-lang="subtitle">
+                Search movies by multiple parameters
+            </p>
+        </div>
+
+        <!-- Przyciski -->
+        <div class="controls">
+
+            <!-- Zmiana języka -->
+            <button id="langToggle" class="lang-btn">
+                PL
+            </button>
+
+            <!-- Motyw -->
+            <label for="themeToggle" class="theme-icon-toggle">
+                <span class="icon"></span>
+            </label>
+
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- Currently in cinemas -->
+    <section class="section" id="cinemas">
+
+        <h2 data-lang="cinemas">
+            Currently in cinemas
+        </h2>
+
+        <div class="cinemas-placeholder">
+            <p data-lang="cinemasText">
+                Featured cinema releases will appear here.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- Netflix -->
+    <section class="section" id="netflix">
+
+        <h2 data-lang="netflix">
+            Currently popular on Netflix
+        </h2>
+
+        <div class="netflix-grid">
+
+            <div class="netflix-card">
+                <div class="poster">
+
+                    <img src="https://image.tmdb.org/t/p/w500/9yxep7oJdkj3Pla9TD9gKflRApY.jpg" alt="Stranger Things">
+
+                    <div class="overlay">
+                        <button class="play-btn">▶</button>
+
+                        <div class="info">
+                            <h3>Stranger Things</h3>
+                            <p>Sci-Fi • Drama</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="netflix-card">
+                <div class="poster">
+
+                    <img src="https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg" alt="The Witcher">
+
+                    <div class="overlay">
+                        <button class="play-btn">▶</button>
+
+                        <div class="info">
+                            <h3>The Witcher</h3>
+                            <p>Fantasy • Action</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="netflix-card">
+                <div class="poster">
+
+                    <img src="https://image.tmdb.org/t/p/w500/jeGtaMwGxPmQN5xM4ClnwPQcNQz.jpg" alt="Wednesday">
+
+                    <div class="overlay">
+                        <button class="play-btn">▶</button>
+
+                        <div class="info">
+                            <h3>Wednesday</h3>
+                            <p>Comedy • Mystery</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="netflix-card">
+                <div class="poster">
+
+                    <img src="https://image.tmdb.org/t/p/w500/wlfDxbGEsW58vGhFljKkcR5IxDj.jpg" alt="Extraction">
+
+                    <div class="overlay">
+                        <button class="play-btn">▶</button>
+
+                        <div class="info">
+                            <h3>Extraction</h3>
+                            <p>Action • Thriller</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Search -->
+    <section class="section" id="search">
+
+        <h2 data-lang="searchMovies">
+            Search movies
+        </h2>
+
+        <p class="muted" data-lang="preferences">
+            Choose your preferences. Results will appear below.
+        </p>
+
+        <form class="search-form">
+
+            <div class="field">
+                <label data-lang="title">Title</label>
+                <input type="text" placeholder="e.g. Inception">
+            </div>
+
+            <div class="field">
+                <label data-lang="year">Year</label>
+                <input type="number" placeholder="e.g. 2014">
+            </div>
+
+            <div class="field">
+                <label data-lang="director">Director</label>
+                <input type="text" placeholder="e.g. Nolan">
+            </div>
+
+            <div class="field">
+                <label data-lang="cast">Cast</label>
+                <input type="text" placeholder="e.g. DiCaprio">
+            </div>
+
+            <div class="field">
+                <label data-lang="genre">Genre</label>
+
+                <select>
+                    <option>Any</option>
+                    <option>Action</option>
+                    <option>Drama</option>
+                    <option>Comedy</option>
+                    <option>Sci-Fi</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label data-lang="runtime">Runtime</label>
+
+                <select>
+                    <option>Any</option>
+                    <option>&lt; 90 min</option>
+                    <option>90–120 min</option>
+                    <option>120+ min</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label data-lang="awards">Awards</label>
+
+                <select>
+                    <option>Any</option>
+                    <option>Oscar winner</option>
+                    <option>Oscar nominated</option>
+                    <option>Golden Globe winner</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label data-lang="country">Country</label>
+
+                <select>
+                    <option>Any</option>
+                    <option>USA</option>
+                    <option>UK</option>
+                    <option>France</option>
+                    <option>Poland</option>
+                    <option>Japan</option>
+                </select>
+            </div>
+
+            <div class="actions">
+
+                <button class="btn btn-primary" type="submit" data-lang="search">
+                    Search
+                </button>
+
+                <button class="btn btn-ghost" type="reset" data-lang="reset">
+                    Reset
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <!-- Results -->
+    <section class="section" id="results">
+
+        <h2 data-lang="results">
+            Results
+        </h2>
+
+        <div class="results-empty">
+
+            <p data-lang="noResults">
+                No results yet.
+                Use the search form above to find movies.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>
+        HTML + CSS Project • Movie data provided by
+
+        <a href="https://www.omdbapi.com/" target="_blank">
+            OMDb API
+        </a>
+    </p>
+</footer>
+
 </div>
 
-    </header>
-
-    <!-- Główna zawartość strony -->
-    <main class="container">
-
-       <!-- Sekcja currently in cinemas -->
-  <section class="section" id="cinemas">
-    <h2>Currently in cinemas</h2>
-
-    <div class="cinemas-placeholder">
-      <p>
-        Featured cinema releases will appear here.
-      </p>
-      </div>
-      </section>
-
-<!-- Sekcja Netflix -->
-<section class="section" id="netflix">
-  <h2>Currently popular on Netflix</h2>
-
-  <div class="netflix-grid">
-
-    <div class="netflix-card">
-      <div class="poster">
-        <img src="https://image.tmdb.org/t/p/w500/9yxep7oJdkj3Pla9TD9gKflRApY.jpg" alt="Stranger Things">
-        <div class="overlay">
-          <button class="play-btn">▶</button>
-          <div class="info">
-            <h3>Stranger Things</h3>
-            <p>Sci-Fi • Drama</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="netflix-card">
-      <div class="poster">
-        <img src="https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg" alt="The Witcher">
-        <div class="overlay">
-          <button class="play-btn">▶</button>
-          <div class="info">
-            <h3>The Witcher</h3>
-            <p>Fantasy • Action</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="netflix-card">
-      <div class="poster">
-        <img src="https://image.tmdb.org/t/p/w500/jeGtaMwGxPmQN5xM4ClnwPQcNQz.jpg" alt="Wednesday">
-        <div class="overlay">
-          <button class="play-btn">▶</button>
-          <div class="info">
-            <h3>Wednesday</h3>
-            <p>Comedy • Mystery</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="netflix-card">
-      <div class="poster">
-        <img src="https://image.tmdb.org/t/p/w500/wlfDxbGEsW58vGhFljKkcR5IxDj.jpg" alt="Extraction">
-        <div class="overlay">
-          <button class="play-btn">▶</button>
-          <div class="info">
-            <h3>Extraction</h3>
-            <p>Action • Thriller</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section> 
-
-      <!-- Sekcja z nagłówkiem wyszukiwania filmów -->
-<section class="section" id="search">
-    <h2>Search movies</h2>
-    <p class="muted">
-      Choose your preferences. Results will appear below.
-    </p>
-      <!-- Formularz wyszukiwania -->
-    <form class="search-form">
-      <div class="field">
-        <label>Title</label>
-        <input type="text" placeholder="e.g. Inception">
-      </div>
-
-      <div class="field">
-        <label>Year</label>
-        <input type="number" placeholder="e.g. 2014">
-      </div>
-
-      <div class="field">
-        <label>Director</label>
-        <input type="text" placeholder="e.g. Nolan">
-      </div>
-
-      <div class="field">
-        <label>Cast</label>
-        <input type="text" placeholder="e.g. DiCaprio">
-      </div>
-
-      <div class="field">
-        <label>Genre</label>
-        <select>
-          <option>Any</option>
-          <option>Action</option>
-          <option>Drama</option>
-          <option>Comedy</option>
-          <option>Sci-Fi</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Runtime</label>
-        <select>
-          <option>Any</option>
-          <option>&lt; 90 min</option>
-          <option>90–120 min</option>
-          <option>120+ min</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Awards</label>
-        <select>
-          <option>Any</option>
-          <option>Oscar winner</option>
-          <option>Oscar nominated</option>
-          <option>Golden Globe winner</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Country</label>
-        <select>
-          <option>Any</option>
-          <option>USA</option>
-          <option>UK</option>
-          <option>France</option>
-          <option>Poland</option>
-          <option>Japan</option>
-        </select>
-      </div>
-        <!-- Przyciski wyszukiwania i resetowania -->
-      <div class="actions">
-        <button class="btn btn-primary" type="submit">Search</button>
-        <button class="btn btn-ghost" type="reset">Reset</button>
-      </div>
-    </form>
-  </section>
- 
-    <!-- Sekcja wyników -->
-  <section class="section" id="results"> 
-    <h2>Results</h2>
-    <!-- Pusty placeholder dla wyników -->
-    <div class="results-empty">
-      <p>
-        No results yet.<br>
-        Use the search form above to find movies.
-      </p>
-    </div></section>
-  
-    </main>
-    <!-- Stopka strony -->
-    <footer class="footer">
-        <p>
-            HTML + CSS Project • Movie data provided by
-            <a href="https://www.omdbapi.com/" target="_blank">OMDb API</a>
-        </p>
-    </footer>
-  </div>
 <script src="script.js"></script>
-</body>
 
+</body>
 </html>
