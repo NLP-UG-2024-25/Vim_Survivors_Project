@@ -390,3 +390,24 @@ button {
   font-size: 0.8rem;
   color: #d1d5db;
 }
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.lang-btn:hover {
+  opacity: 0.9;
+}
