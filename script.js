@@ -45,22 +45,28 @@ function displayResults(data) {
   resultsSection.innerHTML = `
     <h2>Results</h2>
     <div class="netflix-grid">
-      ${movies.map(movie => `
-        <div class="netflix-card">
-          <div class="poster">
-            <img src="${movie.Poster}" alt="${movie.Title}" />
+${movies.map(movie => `
+  <div class="netflix-card">
+    <div class="poster">
 
-            <button class="play-btn">▶</button>
+<img 
+  src="${movie.Poster !== "N/A"
+    ? movie.Poster
+    : "no-poster.png"}"
+  alt="${movie.Title}"
+/>
 
-            <div class="overlay">
-              <div class="info">
-                <h3>${movie.Title}</h3>
-                <p>${movie.Year}</p>
-              </div>
-            </div>
-          </div>
+      <button class="play-btn">▶</button>
+
+      <div class="overlay">
+        <div class="info">
+          <h3>${movie.Title}</h3>
+          <p>${movie.Year}</p>
         </div>
-      `).join("")}
+      </div>
+    </div>
+  </div>
+`).join("")}
     </div>
   `;
 }
