@@ -419,7 +419,8 @@ button {
 #intro-screen {
   position: fixed;
   inset: 0;
-  background: #000;
+
+  background: black;
 
   display: flex;
   justify-content: center;
@@ -427,14 +428,17 @@ button {
 
   z-index: 99999;
 
-  animation: introDisappear 1s ease forwards;
-  animation-delay: 2.4s;
+  overflow: hidden;
 }
+
+/* CLAPPER */
 
 .clapperboard {
   width: 320px;
   perspective: 1200px;
 }
+
+/* TOP PART */
 
 .clapper-top {
   height: 70px;
@@ -450,13 +454,16 @@ button {
 
   transform-origin: bottom center;
 
-  animation:
-    closeClapper 1.2s ease forwards,
-    shake 0.15s ease 1.15s;
+  /* START OPEN */
+  transform: rotateX(-110deg);
+
+  animation: slamClapper 1s ease forwards;
 
   box-shadow:
     0 10px 30px rgba(0,0,0,0.4);
 }
+
+/* BOTTOM */
 
 .clapper-bottom {
   height: 180px;
@@ -482,20 +489,16 @@ button {
   letter-spacing: 2px;
 }
 
-/* CLAP ANIMATION */
+/* CLAPPER CLOSE */
 
-@keyframes closeClapper {
+@keyframes slamClapper {
 
   0% {
-    transform: rotateX(-85deg);
-  }
-
-  55% {
-    transform: rotateX(0deg);
+    transform: rotateX(-110deg);
   }
 
   70% {
-    transform: rotateX(-10deg);
+    transform: rotateX(8deg);
   }
 
   100% {
@@ -503,25 +506,37 @@ button {
   }
 }
 
-/* INTRO FADE */
+/* SCREEN SHAKE */
 
-@keyframes introDisappear {
+.shake {
+  animation: screenShake 0.25s ease;
+}
+
+@keyframes screenShake {
+
+  0% { transform: translate(0); }
+
+  20% { transform: translate(-8px, 4px); }
+
+  40% { transform: translate(8px, -4px); }
+
+  60% { transform: translate(-6px, 2px); }
+
+  80% { transform: translate(6px, -2px); }
+
+  100% { transform: translate(0); }
+}
+
+/* FADE OUT */
+
+.hide-intro {
+  animation: fadeOut 0.7s ease forwards;
+}
+
+@keyframes fadeOut {
 
   to {
     opacity: 0;
     visibility: hidden;
   }
-}
-
-@keyframes shake {
-
-  0% { transform: rotateX(0deg) translateX(0); }
-
-  25% { transform: rotateX(0deg) translateX(-4px); }
-
-  50% { transform: rotateX(0deg) translateX(4px); }
-
-  75% { transform: rotateX(0deg) translateX(-2px); }
-
-  100% { transform: rotateX(0deg) translateX(0); }
 }
