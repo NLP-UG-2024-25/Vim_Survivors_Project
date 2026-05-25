@@ -1,10 +1,10 @@
-/* Ustawienia globalne dla wszystkich elementów  wszystkie elementy zaczynają od tej samej podstawy*/
+/* Global settings for all elements, all elements start from the same base*/
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-/* Tu zapisujemy wszystkie kolory i wartości, których używamy całej stronie,*/
+/* All colors and values, which are used on the page*/
 :root {
   --bg: #0f172a;
   --panel: #020617;
@@ -14,7 +14,7 @@
   --accent: #7c3aed;
   --radius: 12px;
 }
-/* Ustawienia czcionki i odstępu między liniami */
+/* Font and line spacing */
 body {
   font-family: Georgia, serif;
   line-height: 1.5;
@@ -136,7 +136,7 @@ select {
   color: var(--muted);
 }
 
-/* Wyniki i ustawienia */
+/* Results and settings */
 .results-empty {
   margin-top: 20px;
   padding: 40px;
@@ -145,7 +145,7 @@ select {
   border-radius: var(--radius);
   color: var(--muted);
 }
-/* Stopka i jej ustawienia */
+/* Footer and settings */
 .footer {
   margin-top: 60px;
   padding: 20px;
@@ -153,7 +153,7 @@ select {
   background: var(--panel);
   color: var(--muted);
 }
-/* Zmiana układu formularza w zależności od szerokości ekranu (w zależności od urządzenia)*/
+/* Changing the layout of the form depending on the screen width (depending on the device)*/
 @media (max-width: 900px) {
   .search-form {
     grid-template-columns: repeat(2, 1fr);
@@ -177,7 +177,7 @@ select {
 }
  
 }
-/*  Tryb Jasny i Ciemny zmiana wyglądu po wciśnięciu przycisku */
+/*  Light and dark mode */
 #themeToggle:checked ~ .app {
    --bg: #f1f5f9;        
   --panel: #ffffff;    
@@ -200,28 +200,28 @@ select {
   transition: background 0.3s;
 }
 
-/* ikonka */
+/* Icon */
 .icon {
   font-size: 14px;
   transition: transform 0.3s ease;
 }
 
-/* domyślnie 🌙 */
+/* Default 🌙 */
 .icon::before {
   content: "🌙";
 }
 
-/* po kliknięciu przesuwa się */
+/* After clicking */
 #themeToggle:checked ~ .app .theme-icon-toggle .icon {
   transform: translateX(20px);
 }
 
-/* zmiana na ☀️ */
+/* Change to ☀️ */
 #themeToggle:checked ~ .app .theme-icon-toggle .icon::before {
   content: "☀️";
 }
 
-/* kolor aktywny */
+/* Active color */
 #themeToggle:checked ~ .app .theme-icon-toggle {
   background: var(--accent);
 }
@@ -285,7 +285,7 @@ button {
   touch-action: manipulation;
 }
 
-/* Sekcja Currently in cinemas */
+/* 'Currently in cinemas' section */
 .cinemas-placeholder {
   margin-top: 20px;
   padding: 40px;
