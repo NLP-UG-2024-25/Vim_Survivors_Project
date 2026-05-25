@@ -139,3 +139,14 @@ langBtn.addEventListener("click", () => {
     element.textContent = translations[currentLang][key];
   });
 });
+
+
+window.addEventListener("load", () => {
+
+  const intro = document.getElementById("intro-screen");
+
+  setTimeout(() => {
+    intro.remove();
+  }, 3500);
+
+});
