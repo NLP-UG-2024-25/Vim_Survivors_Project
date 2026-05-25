@@ -144,9 +144,27 @@ langBtn.addEventListener("click", () => {
 window.addEventListener("load", () => {
 
   const intro = document.getElementById("intro-screen");
+  const app = document.querySelector(".app");
 
+  /* Movie slap */
   setTimeout(() => {
+
+    app.classList.add("shake");
+
+  }, 700);
+
+  /* Hiding the intro */
+  setTimeout(() => {
+
+    intro.classList.add("hide-intro");
+
+  }, 1000);
+
+  /* Closing the intro */
+  setTimeout(() => {
+
     intro.remove();
-  }, 3500);
+
+  }, 1800);
 
 });
