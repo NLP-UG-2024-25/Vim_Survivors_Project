@@ -481,6 +481,19 @@ button {
   border-radius: 0 0 10px 10px;
 
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clapper-title {
+  color: #f5f5f5;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 /* WHITE LINES INSIDE – more "real clapper" look */
