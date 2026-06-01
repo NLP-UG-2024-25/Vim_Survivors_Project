@@ -419,7 +419,7 @@ button {
 #intro-screen {
   position: fixed;
   inset: 0;
-  background: #3a332f;
+  background: transparent;
 
   display: flex;
   justify-content: center;
