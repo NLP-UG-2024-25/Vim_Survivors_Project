@@ -168,3 +168,43 @@ window.addEventListener("load", () => {
   }, 1800);
 
 });
+
+/* =========================
+   POPCORN CURSOR EFFECT
+========================= */
+
+document.addEventListener("mousemove", (e) => {
+
+  createPopcorn(e.clientX, e.clientY);
+
+});
+
+function createPopcorn(x, y) {
+
+  const popcorn = document.createElement("span");
+
+  popcorn.classList.add("popcorn");
+
+  popcorn.innerText = "🍿";
+
+  document.body.appendChild(popcorn);
+
+  /* Position */
+  popcorn.style.left = x + "px";
+  popcorn.style.top = y + "px";
+
+  /* Random size */
+  const size = Math.random() * 18 + 12;
+
+  popcorn.style.fontSize = size + "px";
+
+  /* Random movement */
+  const xMove = (Math.random() - 0.5) * 100;
+
+  popcorn.style.setProperty("--xMove", `${xMove}px`);
+
+  /* Remove after animation */
+  setTimeout(() => {
+    popcorn.remove();
+  }, 1200);
+}
