@@ -419,90 +419,106 @@ button {
 #intro-screen {
   position: fixed;
   inset: 0;
-
-  background: black;
+  background: #3a332f;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   z-index: 99999;
-
   overflow: hidden;
 }
 
-/* CLAPPER */
+/* WHOLE CLAPPER */
 
 .clapperboard {
-  width: 320px;
-  perspective: 1200px;
+  position: relative;
+  width: 260px;
+  height: 210px;
+
+  animation: clapperPop 0.6s ease forwards;
 }
 
 /* TOP PART */
 
 .clapper-top {
-  height: 70px;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 260px;
+  height: 58px;
 
   background:
     repeating-linear-gradient(
-      -45deg,
-      #fff 0 20px,
-      #000 20px 40px
+      45deg,
+      white 0 28px,
+      transparent 28px 48px
     );
 
-  border-radius: 12px 12px 0 0;
+  border: 9px solid white;
+  border-radius: 8px 8px 0 0;
 
-  transform-origin: bottom center;
+  transform-origin: left bottom;
 
-  /* START OPEN */
-  transform: rotateX(-110deg);
+  /* START OPEN LIKE GIF */
+  transform: rotate(-18deg) translateY(-45px);
 
-  animation: slamClapper 1s ease forwards;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.4);
+  animation: closeClapper 1.1s ease-in-out forwards;
 }
 
-/* BOTTOM */
+/* BOTTOM PART */
 
 .clapper-bottom {
-  height: 180px;
+  position: absolute;
+  left: 0;
+  top: 70px;
 
-  background: #111;
+  width: 260px;
+  height: 130px;
 
-  border: 4px solid #333;
+  border: 9px solid white;
   border-top: none;
+  border-radius: 0 0 8px 8px;
 
-  border-radius: 0 0 16px 16px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,0.6);
+  box-sizing: border-box;
 }
 
-.clapper-bottom h1 {
-  color: white;
-  font-size: 2rem;
-  letter-spacing: 2px;
-}
+/* CLOSING ANIMATION */
 
-/* CLAPPER CLOSE */
-
-@keyframes slamClapper {
-
+@keyframes closeClapper {
   0% {
-    transform: rotateX(-110deg);
+    transform: rotate(-18deg) translateY(-45px);
   }
 
-  70% {
-    transform: rotateX(8deg);
+  45% {
+    transform: rotate(-18deg) translateY(-45px);
+  }
+
+  75% {
+    transform: rotate(3deg) translateY(0);
+  }
+
+  90% {
+    transform: rotate(-2deg) translateY(0);
   }
 
   100% {
-    transform: rotateX(0deg);
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+/* SMALL POP AT START */
+
+@keyframes clapperPop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -513,17 +529,11 @@ button {
 }
 
 @keyframes screenShake {
-
   0% { transform: translate(0); }
-
   20% { transform: translate(-8px, 4px); }
-
   40% { transform: translate(8px, -4px); }
-
   60% { transform: translate(-6px, 2px); }
-
   80% { transform: translate(6px, -2px); }
-
   100% { transform: translate(0); }
 }
 
@@ -534,13 +544,11 @@ button {
 }
 
 @keyframes fadeOut {
-
   to {
     opacity: 0;
     visibility: hidden;
   }
 }
-
 /* =========================
    POPCORN CURSOR EFFECT
 ========================= */
