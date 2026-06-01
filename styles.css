@@ -496,21 +496,6 @@ button {
   text-align: center;
 }
 
-/* WHITE LINES INSIDE – more "real clapper" look */
-.clapper-bottom::before {
-  content: "";
-  position: absolute;
-  inset: 18px;
-
-  background:
-    linear-gradient(#d9d9d9, #d9d9d9) 0 33% / 100% 2px no-repeat,
-    linear-gradient(#d9d9d9, #d9d9d9) 0 66% / 100% 2px no-repeat,
-    linear-gradient(#d9d9d9, #d9d9d9) 33% 0 / 2px 100% no-repeat,
-    linear-gradient(#d9d9d9, #d9d9d9) 66% 0 / 2px 100% no-repeat;
-
-  opacity: 0.9;
-  pointer-events: none;
-}
 
 /* CLOSING ANIMATION */
 
