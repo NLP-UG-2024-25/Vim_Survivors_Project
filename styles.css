@@ -540,3 +540,35 @@ button {
     visibility: hidden;
   }
 }
+
+/* =========================
+   POPCORN CURSOR EFFECT
+========================= */
+
+.popcorn {
+  position: fixed;
+
+  pointer-events: none;
+
+  z-index: 9999;
+
+  user-select: none;
+
+  animation: popcornFall 1.2s ease-out forwards;
+}
+
+@keyframes popcornFall {
+
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate(var(--xMove), 80px)
+      rotate(360deg);
+
+    opacity: 0;
+  }
+}
