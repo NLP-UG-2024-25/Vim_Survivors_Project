@@ -3,11 +3,72 @@ const resultsSection = document.querySelector("#results");
 
 const API_KEY = "b69b151";
 
+  const titleInput = document.getElementById("title");
+  const suggestions = document.getElementById("suggestions");
+
+
+titleInput.addEventListener("input", async () => {
+
+  const query = titleInput.value.trim();
+
+  if (query.length < 3) {
+    suggestions.innerHTML = "";
+    return;
+  }
+
+  try {
+
+    const res = await fetch(
+      `https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(query)}`
+    );
+
+    const data = await res.json();
+
+
+
+suggestions.innerHTML = "";
+
+if (data.Search) {
+
+  const sortedMovies = data.Search.sort((a, b) => {
+
+    const aStarts = a.Title.toLowerCase().startsWith(query.toLowerCase());
+    const bStarts = b.Title.toLowerCase().startsWith(query.toLowerCase());
+
+    if (aStarts && !bStarts) return -1;
+    if (!aStarts && bStarts) return 1;
+
+    return a.Title.length - b.Title.length;
+  });
+
+  sortedMovies.forEach(movie => {
+
+    const option = document.createElement("option");
+
+    option.value = movie.Title;
+
+    suggestions.appendChild(option);
+
+  });
+
+}
+
+  } catch (err) {
+    console.error(err);
+  }
+
+});
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const title = form.querySelector('input[type="text"]').value.trim();
-  const year = form.querySelector('input[type="number"]').value.trim();
+  const title = document.getElementById("title").value.trim();
+  const year = document.getElementById("year").value.trim();
+
+  const director = document.getElementById("director").value.trim();
+  const cast = document.getElementById("cast").value.trim();
+  const genre = document.getElementById("genre").value;
+
 
   if (!title) return;
 
@@ -24,15 +85,24 @@ form.addEventListener("submit", async (e) => {
     const res = await fetch(url);
     const data = await res.json();
 
-    displayResults(data);
+    await displayResults(data);
 
   } catch (err) {
-    resultsSection.innerHTML = `<p>Error fetching data</p>`;
-  }
+  console.error(err);
+
+  resultsSection.innerHTML = `
+    <p>Error fetching data</p>
+    <p>${err.message}</p>
+  `;
+}
 });
 
-function displayResults(data) {
+async function displayResults(data) {
+      const director = document.getElementById("director").value.toLowerCase();
+    const cast = document.getElementById("cast").value.toLowerCase();
+    const genre = document.getElementById("genre").value.toLowerCase();
   if (data.Response === "False") {
+
     resultsSection.innerHTML = `
       <h2>Results</h2>
       <p>No results found</p>
@@ -40,12 +110,51 @@ function displayResults(data) {
     return;
   }
 
-  const movies = data.Search;
+  const movies = await Promise.all(
+  data.Search.map(async (movie) => {
+
+    const res = await fetch(
+      `https://www.omdbapi.com/?apikey=${API_KEY}&i=${movie.imdbID}`
+    );
+
+    return await res.json();
+
+  })
+);
+
+const filteredMovies = movies.filter(movie => {
+
+  if (
+    director &&
+    !movie.Director.toLowerCase().includes(director)
+  ) {
+    return false;
+  }
+
+  if (
+    cast &&
+    !movie.Actors.toLowerCase().includes(cast)
+  ) {
+    return false;
+  }
+
+  if (
+    genre !== "any" &&
+    !movie.Genre.toLowerCase().includes(genre)
+  ) {
+    return false;
+  }
+
+  return true;
+
+});
+
+
 
   resultsSection.innerHTML = `
     <h2>Results</h2>
     <div class="netflix-grid">
-${movies.map(movie => `
+${filteredMovies.map(movie => `
   <div class="netflix-card">
     <div class="poster">
 
@@ -54,6 +163,7 @@ ${movies.map(movie => `
     ? movie.Poster
     : "no-poster.png"}"
   alt="${movie.Title}"
+  onerror="this.src='no-poster.png'"
 />
 
       <button class="play-btn">▶</button>

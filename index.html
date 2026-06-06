@@ -169,87 +169,98 @@
 
         <form class="search-form">
 
-            <div class="field">
-                <label data-lang="title">Title</label>
-                <input type="text" placeholder="e.g. Inception">
-            </div>
+    <div class="field">
+        <label data-lang="title">Title</label>
 
-            <div class="field">
-                <label data-lang="year">Year</label>
-                <input type="number" placeholder="e.g. 2014">
-            </div>
+        <input
+            id="title"
+            type="text"
+            list="suggestions"
+            placeholder="e.g. Inception"
+        >
 
-            <div class="field">
-                <label data-lang="director">Director</label>
-                <input type="text" placeholder="e.g. Nolan">
-            </div>
+        <datalist id="suggestions"></datalist>
+    </div>
 
-            <div class="field">
-                <label data-lang="cast">Cast</label>
-                <input type="text" placeholder="e.g. DiCaprio">
-            </div>
+    <div class="field">
+        <label data-lang="year">Year</label>
 
-            <div class="field">
-                <label data-lang="genre">Genre</label>
+        <input
+            id="year"
+            type="number"
+            placeholder="e.g. 2014"
+        >
+    </div>
 
-                <select>
-                    <option>Any</option>
-                    <option>Action</option>
-                    <option>Drama</option>
-                    <option>Comedy</option>
-                    <option>Sci-Fi</option>
-                </select>
-            </div>
+    <div class="field">
+        <label data-lang="director">Director</label>
 
-            <div class="field">
-                <label data-lang="runtime">Runtime</label>
+        <input
+            id="director"
+            type="text"
+            placeholder="e.g. Nolan"
+        >
+    </div>
 
-                <select>
-                    <option>Any</option>
-                    <option>&lt; 90 min</option>
-                    <option>90–120 min</option>
-                    <option>120+ min</option>
-                </select>
-            </div>
+    <div class="field">
+        <label data-lang="cast">Cast</label>
 
-            <div class="field">
-                <label data-lang="awards">Awards</label>
+        <input
+            id="cast"
+            type="text"
+            placeholder="e.g. DiCaprio"
+        >
+    </div>
 
-                <select>
-                    <option>Any</option>
-                    <option>Oscar winner</option>
-                    <option>Oscar nominated</option>
-                    <option>Golden Globe winner</option>
-                </select>
-            </div>
+    <div class="field">
+        <label data-lang="genre">Genre</label>
 
-            <div class="field">
-                <label data-lang="country">Country</label>
+        <select id="genre">
+            <option>Any</option>
+            <option>Action</option>
+            <option>Drama</option>
+            <option>Comedy</option>
+            <option>Sci-Fi</option>
+        </select>
+    </div>
 
-                <select>
-                    <option>Any</option>
-                    <option>USA</option>
-                    <option>UK</option>
-                    <option>France</option>
-                    <option>Poland</option>
-                    <option>Japan</option>
-                </select>
-            </div>
+    <div class="field">
+        <label data-lang="awards">Awards</label>
 
-            <div class="actions">
+        <select>
+            <option>Any</option>
+            <option>Oscar winner</option>
+            <option>Oscar nominated</option>
+            <option>Golden Globe winner</option>
+        </select>
+    </div>
 
-                <button class="btn btn-primary" type="submit" data-lang="search">
-                    Search
-                </button>
+    <div class="field">
+        <label data-lang="country">Country</label>
 
-                <button class="btn btn-ghost" type="reset" data-lang="reset">
-                    Reset
-                </button>
+        <select>
+            <option>Any</option>
+            <option>USA</option>
+            <option>UK</option>
+            <option>France</option>
+            <option>Poland</option>
+            <option>Japan</option>
+        </select>
+    </div>
 
-            </div>
+    <div class="actions">
 
-        </form>
+        <button class="btn btn-primary" type="submit" data-lang="search">
+            Search
+        </button>
 
+        <button class="btn btn-ghost" type="reset" data-lang="reset">
+            Reset
+        </button>
+
+    </div>
+
+</form>
     </section>
 
     <!-- Results -->
