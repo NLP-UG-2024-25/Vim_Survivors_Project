@@ -225,6 +225,17 @@
     </div>
 
     <div class="field">
+    <label>Sort By</label>
+
+    <select id="sort">
+        <option value="default">Default</option>
+        <option value="year_desc">Newest First</option>
+        <option value="year_asc">Oldest First</option>
+        <option value="title">Title A-Z</option>
+    </select>
+</div>
+
+    <div class="field">
         <label data-lang="awards">Awards</label>
 
         <select>
@@ -238,7 +249,7 @@
     <div class="field">
         <label data-lang="country">Country</label>
 
-        <select>
+        <select id="country">
             <option>Any</option>
             <option>USA</option>
             <option>UK</option>

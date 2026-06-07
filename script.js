@@ -4,6 +4,9 @@ const resultsSection = document.querySelector("#results");
 const API_KEY = "b69b151";
 const TMDB_API_KEY ="c30fe8b26335fd1d87b1d82a2c7bb887";
 
+let currentPage = 1;
+
+
 const genreMap = {
   "Action": 28,
   "Drama": 18,
@@ -18,7 +21,7 @@ const countryMap = {
   "Poland": "PL",
   "Japan": "JP"
 };
-
+  
   const titleInput = document.getElementById("title");
   const suggestions = document.getElementById("suggestions");
 
@@ -80,35 +83,39 @@ form.addEventListener("submit", async (e) => {
 
   const title = document.getElementById("title").value.trim();
   const year = document.getElementById("year").value.trim();
-
   const director = document.getElementById("director").value.trim();
   const cast = document.getElementById("cast").value.trim();
   const genre = document.getElementById("genre").value;
-
-
+  const country = document.getElementById("country").value;
+  const sort = document.getElementById("sort").value;
 
 if (!title && !year && director) {
   searchByDirectorTMDB(director);
   return;
 }
 
-
 if (!title && !year && cast) {
   searchByCastTMDB(cast);
   return;
 }
 
-  if (!title && !year && genre !== "Any") {
-  searchByGenreTMDB(genre);
-  return;
-}
+if (
+  !title &&
+  !director &&
+  !cast &&
+  (
+    year ||
+    genre !== "Any" ||
+    country !== "Any"
+  )
+) {
 
+  searchAdvancedTMDB(
+    year,
+    genre,
+    country
+  );
 
-
-
-
-if (!title && year) {
-  searchByYearTMDB(year);
   return;
 }
 
@@ -125,7 +132,7 @@ async function searchByGenreTMDB(genre) {
     const data = await res.json();
 
     displayTMDBResults(data.results);
-
+    
   } catch (err) {
 
     console.error(err);
@@ -133,6 +140,57 @@ async function searchByGenreTMDB(genre) {
     resultsSection.innerHTML = `
       <h2>Results</h2>
       <p>Error loading genre data.</p>
+    `;
+  }
+
+}
+
+async function searchByYearGenreTMDB(year, genre) {
+
+  try {
+
+    const genreId = genreMap[genre];
+
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&primary_release_year=${year}&with_genres=${genreId}&sort_by=popularity.desc`
+    );
+
+    const data = await res.json();
+
+    displayTMDBResults(data.results);
+
+  } catch (err) {
+
+    console.error(err);
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>Error loading movies.</p>
+    `;
+  }
+}
+
+async function searchByCountryTMDB(country) {
+
+  try {
+
+    const countryCode = countryMap[country];
+
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_origin_country=${countryCode}&sort_by=popularity.desc`
+    );
+
+    const data = await res.json();
+
+    displayTMDBResults(data.results);
+
+  } catch (err) {
+
+    console.error(err);
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>Error loading country data.</p>
     `;
   }
 
@@ -304,6 +362,34 @@ const filteredMovies = movies.filter(movie => {
 
 });
 
+const sort = document.getElementById("sort").value;
+
+if (sort === "year_desc") {
+
+  filteredMovies.sort((a, b) =>
+    parseInt(b.Year) - parseInt(a.Year)
+  );
+
+}
+
+if (sort === "year_asc") {
+
+  filteredMovies.sort((a, b) =>
+    parseInt(a.Year) - parseInt(b.Year)
+  );
+
+}
+
+if (sort === "title") {
+
+  filteredMovies.sort((a, b) =>
+    a.Title.localeCompare(b.Title)
+  );
+
+}
+
+
+
 if (filteredMovies.length === 0) {
   resultsSection.innerHTML = `
     <h2>Results</h2>
@@ -343,17 +429,21 @@ ${filteredMovies.map(movie => `
   `;
 }
 
-async function searchByYearTMDB(year) {
+async function searchByYearTMDB(year, page = 1) {
 
   try {
 
     const res = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&primary_release_year=${year}&sort_by=popularity.desc`
-    );
+  `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&primary_release_year=${year}&sort_by=popularity.desc&page=${page}`
+);
 
     const data = await res.json();
 
-    displayTMDBResults(data.results);
+displayTMDBResults(
+  data.results,
+  data.total_pages,
+  (page) => searchByYearTMDB(year, page)
+);
 
   } catch (err) {
 
@@ -366,7 +456,63 @@ async function searchByYearTMDB(year) {
   }
 }
 
-function displayTMDBResults(movies) {
+
+async function searchAdvancedTMDB(
+  year,
+  genre,
+  country,
+  page = 1
+) {
+
+  try {
+
+    let url =
+      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&page=${page}`;
+
+    if (year) {
+      url += `&primary_release_year=${year}`;
+    }
+
+    if (genre !== "Any") {
+      url += `&with_genres=${genreMap[genre]}`;
+    }
+
+    if (country !== "Any") {
+      url += `&with_origin_country=${countryMap[country]}`;
+    }
+
+    const res = await fetch(url);
+
+    const data = await res.json();
+
+    displayTMDBResults(
+      data.results,
+      data.total_pages,
+      (page) =>
+        searchAdvancedTMDB(
+          year,
+          genre,
+          country,
+          page
+        )
+    );
+
+  } catch (err) {
+
+    console.error(err);
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>Error loading movies.</p>
+    `;
+  }
+}
+
+function displayTMDBResults(
+  movies,
+  totalPages = 1,
+  searchFunction = null
+) {
 
   if (!movies || movies.length === 0) {
 
@@ -377,36 +523,53 @@ function displayTMDBResults(movies) {
 
     return;
   }
+  const sort = document.getElementById("sort").value;
 
-  resultsSection.innerHTML = `
-    <h2>Results</h2>
+    if (sort === "year_desc") {
+    movies.sort((a, b) =>
+      new Date(b.release_date) - new Date(a.release_date)
+    );
+  }
 
-    <div class="netflix-grid">
+  if (sort === "year_asc") {
+    movies.sort((a, b) =>
+      new Date(a.release_date) - new Date(b.release_date)
+    );
+  }
 
-      ${movies.map(movie => `
+  if (sort === "title") {
+    movies.sort((a, b) =>
+      a.title.localeCompare(b.title)
+    );
+  }
 
-        <div class="netflix-card">
+ resultsSection.innerHTML = `
+  <h2>Results</h2>
 
-          <div class="poster">
+  <div class="netflix-grid">
 
-            <img
-              src="${
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                  : 'no-poster.png'
-              }"
-              alt="${movie.title}"
-            >
+    ${movies.map(movie => `
 
-            <div class="overlay">
+      <div class="netflix-card">
 
-              <div class="info">
+        <div class="poster">
 
-                <h3>${movie.title}</h3>
+          <img
+            src="${
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : "no-poster.png"
+            }"
+            alt="${movie.title}"
+          >
 
-                <p>${movie.release_date?.slice(0,4) || "Unknown"}</p>
+          <div class="overlay">
 
-              </div>
+            <div class="info">
+
+              <h3>${movie.title}</h3>
+
+              <p>${movie.release_date?.slice(0,4) || "Unknown"}</p>
 
             </div>
 
@@ -414,12 +577,50 @@ function displayTMDBResults(movies) {
 
         </div>
 
-      `).join("")}
+      </div>
 
-    </div>
-  `;
+    `).join("")}
+
+  </div>
+
+  <div class="pagination">
+
+    <button id="prevPage"
+      ${currentPage === 1 ? "disabled" : ""}>
+      Previous
+    </button>
+
+    <span>Page ${currentPage}</span>
+
+    <button id="nextPage"
+      ${currentPage >= totalPages ? "disabled" : ""}>
+      Next
+    </button>
+
+  </div>
+`;
+
+const prevBtn = document.getElementById("prevPage");
+const nextBtn = document.getElementById("nextPage");
+
+if (prevBtn && searchFunction) {
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      searchFunction(currentPage);
+    }
+  });
 }
 
+if (nextBtn && searchFunction) {
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      searchFunction(currentPage);
+    }
+  });
+}
+}
 
 
 const translations = {
@@ -559,3 +760,5 @@ function createPopcorn(x, y) {
     popcorn.remove();
   }, 1200);
 }
+
+
