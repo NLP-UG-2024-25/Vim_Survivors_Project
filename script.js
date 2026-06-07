@@ -640,7 +640,7 @@ const translations = {
     cast: "Cast",
     genre: "Genre",
     runtime: "Runtime",
-    awards: "Awards",
+    
     country: "Country",
 
     search: "Search",
@@ -666,7 +666,7 @@ const translations = {
     cast: "Obsada",
     genre: "Gatunek",
     runtime: "Czas trwania",
-    awards: "Nagrody",
+    
     country: "Kraj",
 
     search: "Szukaj",
