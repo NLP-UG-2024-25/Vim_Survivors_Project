@@ -56,101 +56,28 @@
 
 <main class="container">
 
-    <!-- Currently in cinemas -->
-    <section class="section" id="cinemas">
+   <!-- Random movie -->
+<section class="section" id="random-movie-section">
 
-        <h2 data-lang="cinemas">
-            Currently in cinemas
-        </h2>
+    <h2 data-lang="randomTitle">
+        Can’t decide what to watch?
+    </h2>
 
-        <div class="cinemas-placeholder">
-            <p data-lang="cinemasText">
-                Featured cinema releases will appear here.
-            </p>
-        </div>
+    <p class="muted" data-lang="randomText">
+        Click the button and get a random movie suggestion for today.
+    </p>
 
-    </section>
+    <button id="random-movie-btn" class="btn btn-primary" type="button" data-lang="randomButton">
+        Pick a movie for me
+    </button>
 
-    <!-- Netflix -->
-    <section class="section" id="netflix">
+    <div id="random-movie-result" class="random-empty">
+        <p data-lang="randomEmpty">
+            Your movie suggestion will appear here.
+        </p>
+    </div>
 
-        <h2 data-lang="netflix">
-            Currently popular on Netflix
-        </h2>
-
-        <div class="netflix-grid">
-
-            <div class="netflix-card">
-                <div class="poster">
-
-                    <img src="https://image.tmdb.org/t/p/w500/9yxep7oJdkj3Pla9TD9gKflRApY.jpg" alt="Stranger Things">
-
-                    <div class="overlay">
-                        <button class="play-btn">▶</button>
-
-                        <div class="info">
-                            <h3>Stranger Things</h3>
-                            <p>Sci-Fi • Drama</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="netflix-card">
-                <div class="poster">
-
-                    <img src="https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg" alt="The Witcher">
-
-                    <div class="overlay">
-                        <button class="play-btn">▶</button>
-
-                        <div class="info">
-                            <h3>The Witcher</h3>
-                            <p>Fantasy • Action</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="netflix-card">
-                <div class="poster">
-
-                    <img src="https://image.tmdb.org/t/p/w500/jeGtaMwGxPmQN5xM4ClnwPQcNQz.jpg" alt="Wednesday">
-
-                    <div class="overlay">
-                        <button class="play-btn">▶</button>
-
-                        <div class="info">
-                            <h3>Wednesday</h3>
-                            <p>Comedy • Mystery</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="netflix-card">
-                <div class="poster">
-
-                    <img src="https://image.tmdb.org/t/p/w500/wlfDxbGEsW58vGhFljKkcR5IxDj.jpg" alt="Extraction">
-
-                    <div class="overlay">
-                        <button class="play-btn">▶</button>
-
-                        <div class="info">
-                            <h3>Extraction</h3>
-                            <p>Action • Thriller</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-    </section>
+</section>
 
     <!-- Search -->
     <section class="section" id="search">
