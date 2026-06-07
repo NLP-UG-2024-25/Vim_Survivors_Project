@@ -2,6 +2,22 @@ const form = document.querySelector(".search-form");
 const resultsSection = document.querySelector("#results");
 
 const API_KEY = "b69b151";
+const TMDB_API_KEY ="c30fe8b26335fd1d87b1d82a2c7bb887";
+
+const genreMap = {
+  "Action": 28,
+  "Drama": 18,
+  "Comedy": 35,
+  "Sci-Fi": 878
+};
+
+const countryMap = {
+  "USA": "US",
+  "UK": "GB",
+  "France": "FR",
+  "Poland": "PL",
+  "Japan": "JP"
+};
 
   const titleInput = document.getElementById("title");
   const suggestions = document.getElementById("suggestions");
@@ -70,8 +86,145 @@ form.addEventListener("submit", async (e) => {
   const genre = document.getElementById("genre").value;
 
 
-  if (!title) return;
 
+if (!title && !year && director) {
+  searchByDirectorTMDB(director);
+  return;
+}
+
+
+if (!title && !year && cast) {
+  searchByCastTMDB(cast);
+  return;
+}
+
+  if (!title && !year && genre !== "Any") {
+  searchByGenreTMDB(genre);
+  return;
+}
+
+
+
+
+
+if (!title && year) {
+  searchByYearTMDB(year);
+  return;
+}
+
+async function searchByGenreTMDB(genre) {
+
+  try {
+
+    const genreId = genreMap[genre];
+
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_genres=${genreId}&sort_by=popularity.desc`
+    );
+
+    const data = await res.json();
+
+    displayTMDBResults(data.results);
+
+  } catch (err) {
+
+    console.error(err);
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>Error loading genre data.</p>
+    `;
+  }
+
+}
+
+async function searchByCastTMDB(actorName) {
+
+  try {
+
+    const personResponse = await fetch(
+      `https://api.themoviedb.org/3/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(actorName)}`
+    );
+
+    const personData = await personResponse.json();
+
+    if (!personData.results.length) {
+
+      resultsSection.innerHTML = `
+        <h2>Results</h2>
+        <p>Actor not found.</p>
+      `;
+
+      return;
+    }
+
+    const actorId = personData.results[0].id;
+
+    const moviesResponse = await fetch(
+      `https://api.themoviedb.org/3/person/${actorId}/movie_credits?api_key=${TMDB_API_KEY}`
+    );
+
+    const moviesData = await moviesResponse.json();
+
+    displayTMDBResults(moviesData.cast);
+
+  } catch (err) {
+
+    console.error(err);
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>Error loading actor data.</p>
+    `;
+  }
+
+}
+
+async function searchByDirectorTMDB(directorName) {
+
+  try {
+
+    const personResponse = await fetch(
+      `https://api.themoviedb.org/3/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(directorName)}`
+    );
+
+    const personData = await personResponse.json();
+
+    if (!personData.results.length) {
+
+      resultsSection.innerHTML = `
+        <h2>Results</h2>
+        <p>Director not found.</p>
+      `;
+
+      return;
+    }
+
+    const directorId = personData.results[0].id;
+
+    const creditsResponse = await fetch(
+      `https://api.themoviedb.org/3/person/${directorId}/movie_credits?api_key=${TMDB_API_KEY}`
+    );
+
+    const creditsData = await creditsResponse.json();
+
+    const directedMovies = creditsData.crew.filter(movie =>
+      movie.job === "Director"
+    );
+
+    displayTMDBResults(directedMovies);
+
+  } catch (err) {
+
+    console.error(err);
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>Error loading director data.</p>
+    `;
+  }
+
+}
 
   let url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(title)}`;
 
@@ -122,6 +275,8 @@ async function displayResults(data) {
   })
 );
 
+
+
 const filteredMovies = movies.filter(movie => {
 
   if (
@@ -149,6 +304,13 @@ const filteredMovies = movies.filter(movie => {
 
 });
 
+if (filteredMovies.length === 0) {
+  resultsSection.innerHTML = `
+    <h2>Results</h2>
+    <p>No movies match your filters.</p>
+  `;
+  return;
+}
 
 
   resultsSection.innerHTML = `
@@ -180,6 +342,85 @@ ${filteredMovies.map(movie => `
     </div>
   `;
 }
+
+async function searchByYearTMDB(year) {
+
+  try {
+
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&primary_release_year=${year}&sort_by=popularity.desc`
+    );
+
+    const data = await res.json();
+
+    displayTMDBResults(data.results);
+
+  } catch (err) {
+
+    console.error(err);
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>Error loading TMDb data.</p>
+    `;
+  }
+}
+
+function displayTMDBResults(movies) {
+
+  if (!movies || movies.length === 0) {
+
+    resultsSection.innerHTML = `
+      <h2>Results</h2>
+      <p>No movies found.</p>
+    `;
+
+    return;
+  }
+
+  resultsSection.innerHTML = `
+    <h2>Results</h2>
+
+    <div class="netflix-grid">
+
+      ${movies.map(movie => `
+
+        <div class="netflix-card">
+
+          <div class="poster">
+
+            <img
+              src="${
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : 'no-poster.png'
+              }"
+              alt="${movie.title}"
+            >
+
+            <div class="overlay">
+
+              <div class="info">
+
+                <h3>${movie.title}</h3>
+
+                <p>${movie.release_date?.slice(0,4) || "Unknown"}</p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+  `;
+}
+
+
 
 const translations = {
   en: {
