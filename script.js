@@ -78,6 +78,121 @@ if (data.Search) {
 
 });
 
+const randomMovieBtn = document.querySelector("#random-movie-btn");
+const randomMovieResult = document.querySelector("#random-movie-result");
+
+const randomMovieTitles = [
+  "Inception",
+  "Interstellar",
+  "The Matrix",
+  "The Dark Knight",
+  "Forrest Gump",
+  "Pulp Fiction",
+  "Fight Club",
+  "The Shawshank Redemption",
+  "The Godfather",
+  "Titanic",
+  "La La Land",
+  "The Grand Budapest Hotel",
+  "Parasite",
+  "Whiplash",
+  "The Social Network",
+  "The Devil Wears Prada",
+  "Shutter Island",
+  "Gone Girl",
+  "The Wolf of Wall Street",
+  "Little Women",
+  "Barbie",
+  "Oppenheimer",
+  "Dune",
+  "The Hunger Games",
+  "Harry Potter and the Sorcerer's Stone",
+  "The Lord of the Rings: The Fellowship of the Ring",
+  "Spider-Man",
+  "Joker",
+  "Avatar",
+  "Mamma Mia"
+];
+
+randomMovieBtn.addEventListener("click", getRandomMovie);
+
+async function getRandomMovie() {
+  const randomIndex = Math.floor(Math.random() * randomMovieTitles.length);
+  const randomTitle = randomMovieTitles[randomIndex];
+
+  const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${encodeURIComponent(randomTitle)}`;
+
+  try {
+    randomMovieBtn.disabled = true;
+    randomMovieBtn.textContent = translations[currentLang].randomLoading;
+
+    randomMovieResult.classList.remove("random-empty");
+    randomMovieResult.innerHTML = `<p>${translations[currentLang].randomLoading}</p>`;
+
+    const res = await fetch(url);
+    const movie = await res.json();
+
+    if (movie.Response === "False") {
+      randomMovieResult.classList.add("random-empty");
+      randomMovieResult.innerHTML = `<p>${translations[currentLang].randomError}</p>`;
+      return;
+    }
+
+    displayRandomMovie(movie);
+
+  } catch (error) {
+    randomMovieResult.classList.add("random-empty");
+    randomMovieResult.innerHTML = `<p>${translations[currentLang].randomError}</p>`;
+  } finally {
+    randomMovieBtn.disabled = false;
+    randomMovieBtn.textContent = translations[currentLang].randomButton;
+  }
+}
+
+function displayRandomMovie(movie) {
+  randomMovieResult.innerHTML = `
+    <div class="random-movie-card">
+
+      <div class="random-movie-poster">
+        <img 
+          src="${movie.Poster !== "N/A" ? movie.Poster : "no-poster.png"}" 
+          alt="${movie.Title}"
+        >
+      </div>
+
+      <div class="random-movie-info">
+        <h3>${movie.Title}</h3>
+
+        <p>
+          <strong>${translations[currentLang].randomYear}:</strong> 
+          ${movie.Year}
+        </p>
+
+        <p>
+          <strong>${translations[currentLang].randomGenre}:</strong> 
+          ${movie.Genre}
+        </p>
+
+        <p>
+          <strong>${translations[currentLang].randomRuntime}:</strong> 
+          ${movie.Runtime}
+        </p>
+
+        <p>
+          <strong>${translations[currentLang].randomRating}:</strong> 
+          ${movie.imdbRating}/10
+        </p>
+
+        <p>
+          <strong>${translations[currentLang].randomPlot}:</strong> 
+          ${movie.Plot}
+        </p>
+      </div>
+
+    </div>
+  `;
+}
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -626,10 +741,18 @@ if (nextBtn && searchFunction) {
 const translations = {
   en: {
     subtitle: "Search movies by multiple parameters",
-    cinemas: "Currently in cinemas",
-    cinemasText: "Featured cinema releases will appear here.",
-
-    netflix: "Currently popular on Netflix",
+    
+    randomTitle: "Can’t decide what to watch?",
+    randomText: "Click the button and get a random movie suggestion for today.",
+    randomButton: "Pick a movie for me",
+    randomEmpty: "Your movie suggestion will appear here.",
+    randomLoading: "Choosing a movie...",
+    randomError: "Sorry, we could not choose a movie right now.",
+    randomYear: "Year",
+    randomGenre: "Genre",
+    randomRuntime: "Runtime",
+    randomRating: "IMDb rating",
+    randomPlot: "Plot",
 
     searchMovies: "Search movies",
     preferences: "Choose your preferences. Results will appear below.",
@@ -652,10 +775,18 @@ const translations = {
 
   pl: {
     subtitle: "Wyszukuj filmy według wielu parametrów",
-    cinemas: "Obecnie w kinach",
-    cinemasText: "Polecane premiery kinowe pojawią się tutaj.",
-
-    netflix: "Obecnie popularne na Netflixie",
+    
+    randomTitle: "Nie wiesz, co obejrzeć?",
+    randomText: "Kliknij przycisk i wylosuj propozycję filmu na dziś.",
+    randomButton: "Wylosuj film",
+    randomEmpty: "Twoja propozycja filmu pojawi się tutaj.",
+    randomLoading: "Losowanie filmu...",
+    randomError: "Niestety, nie udało się teraz wylosować filmu.",
+    randomYear: "Rok",
+    randomGenre: "Gatunek",
+    randomRuntime: "Czas trwania",
+    randomRating: "Ocena IMDb",
+    randomPlot: "Opis",
 
     searchMovies: "Wyszukaj filmy",
     preferences: "Wybierz preferencje. Wyniki pojawią się poniżej.",

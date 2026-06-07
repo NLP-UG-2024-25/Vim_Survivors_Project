@@ -582,3 +582,74 @@ button {
     opacity: 0;
   }
 }
+
+/* =========================
+   RANDOM MOVIE SECTION
+========================= */
+
+#random-movie-section {
+  text-align: center;
+}
+
+#random-movie-btn {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.random-empty {
+  margin-top: 20px;
+  padding: 40px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
+
+.random-movie-card {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: center;
+
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+  text-align: left;
+}
+
+.random-movie-poster img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.random-movie-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.random-movie-info p {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.random-movie-info strong {
+  color: var(--text);
+}
+
+@media (max-width: 700px) {
+  .random-movie-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .random-movie-poster img {
+    max-width: 260px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+}
