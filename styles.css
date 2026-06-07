@@ -419,12 +419,16 @@ button {
 #intro-screen {
   position: fixed;
   inset: 0;
-  background: transparent; /* widać stronę pod spodem */
+
+  background: transparent;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   z-index: 99999;
   overflow: hidden;
+
   pointer-events: none;
 }
 
@@ -496,22 +500,25 @@ button {
   text-align: center;
 }
 
-
 /* CLOSING ANIMATION */
 
 @keyframes closeClapper {
   0% {
     transform: rotate(-18deg) translateY(-45px);
   }
+
   45% {
     transform: rotate(-18deg) translateY(-45px);
   }
+
   75% {
     transform: rotate(3deg) translateY(0);
   }
+
   90% {
     transform: rotate(-2deg) translateY(0);
   }
+
   100% {
     transform: rotate(0deg) translateY(0);
   }
