@@ -693,33 +693,15 @@ langBtn.addEventListener("click", () => {
 });
 
 
-window.addEventListener("load", () => {
+const intro = document.querySelector("#intro-screen");
 
-  const intro = document.getElementById("intro-screen");
-  const app = document.querySelector(".app");
+setTimeout(() => {
+  intro.classList.add("shake");
+}, 900);
 
-  /* Movie slap */
-  setTimeout(() => {
-
-    app.classList.add("shake");
-
-  }, 700);
-
-  /* Hiding the intro */
-  setTimeout(() => {
-
-    intro.classList.add("hide-intro");
-
-  }, 1000);
-
-  /* Closing the intro */
-  setTimeout(() => {
-
-    intro.remove();
-
-  }, 1800);
-
-});
+setTimeout(() => {
+  intro.classList.add("hide-intro");
+}, 1600);
 
 /* =========================
    POPCORN CURSOR EFFECT
